@@ -1,0 +1,26 @@
+<div class="page">
+  <div class="card">
+    <header class="head">
+      <h1>New Game</h1>
+      <p class="sub">Trouve le mot le plus long possible avec la grille 👇</p>
+    </header>
+
+    <ul class="letters">
+      <% @letters.each_with_index do |letter, i| %>
+        <li class="tile" style="--d:<%= i %>"><%= letter %></li>
+      <% end %>
+    </ul>
+
+    <%= form_with url: score_path, method: :post, data: { turbo: false }, class: "form" do %>
+      <%= hidden_field_tag :letters, @letters.join(" ") %>
+
+      <label class="label" for="word">Your word</label>
+      <div class="row">
+        <%= text_field_tag :word, nil, id: "word", class: "input", placeholder: "ex: train", required: true %>
+        <%= submit_tag "Play", class: "btn btn--primary" %>
+      </div>
+
+      <p class="hint">Astuce : utilise uniquement les lettres affichées.</p>
+    <% end %>
+  </div>
+</div>

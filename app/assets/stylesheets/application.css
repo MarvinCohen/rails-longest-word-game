@@ -1,10 +1,268 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+:root{
+  --bg0:#070a13;
+  --bg1:#0b1020;
+  --card: rgba(255,255,255,.08);
+  --card2: rgba(255,255,255,.05);
+  --border: rgba(255,255,255,.14);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.65);
+
+  --p1:#7c3aed;
+  --p2:#60a5fa;
+  --ok:#22c55e;
+  --bad:#ef4444;
+  --warn:#f59e0b;
+
+  --radius: 22px;
+  --shadow: 0 24px 70px rgba(0,0,0,.45);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--text);
+  background:
+    radial-gradient(1000px 600px at 15% 10%, rgba(124,58,237,.35), transparent 60%),
+    radial-gradient(900px 550px at 85% 15%, rgba(96,165,250,.25), transparent 55%),
+    radial-gradient(900px 650px at 50% 110%, rgba(34,197,94,.14), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+}
+
+.page{
+  min-height:100%;
+  display:grid;
+  place-items:center;
+  padding: 28px 16px;
+}
+
+.card{
+  width: min(820px, 100%);
+  background: linear-gradient(180deg, var(--card), var(--card2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* petite “lueur” */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(600px 240px at 20% 0%, rgba(124,58,237,.25), transparent 60%),
+              radial-gradient(520px 260px at 80% 10%, rgba(96,165,250,.18), transparent 60%);
+  pointer-events:none;
+  filter: blur(10px);
+}
+
+.head{
+  position: relative;
+  padding: 6px 6px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  margin-bottom: 16px;
+}
+h1{
+  margin:0;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.sub{
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+/* Letters / tiles */
+.letters{
+  list-style:none;
+  padding:0;
+  margin: 18px 0 10px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap: 12px;
+  position: relative;
+}
+
+.tile{
+  width: 62px;
+  height: 62px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  user-select:none;
+
+  background: linear-gradient(145deg, rgba(124,58,237,.75), rgba(96,165,250,.35));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 16px 35px rgba(0,0,0,.35);
+
+  transform: translateY(10px) scale(.96);
+  opacity: 0;
+  animation: pop .55s cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: calc(var(--d) * 55ms);
+}
+
+.tile:hover{
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 22px 45px rgba(0,0,0,.45);
+}
+
+@keyframes pop{
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Form */
+.form{ position: relative; padding: 6px; }
+
+.label{
+  display:block;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 10px 0 8px;
+}
+
+.row{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+.input{
+  flex: 1 1 320px;
+  max-width: 420px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: var(--text);
+  font-size: 16px;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+.input::placeholder{ color: rgba(255,255,255,.45); }
+
+.input:focus{
+  border-color: rgba(124,58,237,.60);
+  box-shadow: 0 0 0 5px rgba(124,58,237,.20);
+  transform: translateY(-1px);
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  text-decoration:none;
+  cursor:pointer;
+  font-weight: 700;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  white-space: nowrap;
+}
+
+.btn:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 18px 40px rgba(0,0,0,.28);
+}
+
+.btn--primary{
+  border-color: rgba(124,58,237,.55);
+  background: linear-gradient(135deg, rgba(124,58,237,.65), rgba(96,165,250,.25));
+}
+
+.btn--ghost{
+  background: transparent;
+}
+
+.hint{
+  margin: 10px 0 0;
+  color: rgba(255,255,255,.55);
+  font-size: 13px;
+}
+
+/* Score page bits */
+.meta{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px;
+}
+
+.pill{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+}
+
+.pill .k{
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.pill .v{
+  font-weight: 750;
+}
+
+.result{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+}
+
+.result__text{
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.result__score{
+  margin: 0;
+  color: var(--muted);
+}
+
+/* couleurs auto si tu ajoutes @status dans le controller */
+.result--ok{
+  border-color: rgba(34,197,94,.35);
+  background: rgba(34,197,94,.12);
+}
+.result--grid{
+  border-color: rgba(245,158,11,.35);
+  background: rgba(245,158,11,.10);
+}
+.result--not_english{
+  border-color: rgba(239,68,68,.35);
+  background: rgba(239,68,68,.10);
+}
+
+.actions{
+  padding: 14px 6px 6px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  justify-content:center;
+}

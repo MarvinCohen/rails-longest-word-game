@@ -1,0 +1,23 @@
+<div class="page">
+  <div class="card">
+    <header class="head">
+      <h1>Result</h1>
+      <p class="sub">Ta tentative et le verdict 👇</p>
+    </header>
+
+    <div class="meta">
+      <div class="pill"><span class="k">Grid</span> <span class="v"><%= @letters.join(" ") %></span></div>
+      <div class="pill"><span class="k">Word</span> <span class="v"><%= @word.to_s.upcase %></span></div>
+    </div>
+
+    <%# Optionnel : si tu veux des couleurs auto, mets @status = :ok / :grid / :not_english dans le controller %>
+    <div class="result <%= @status.present? ? "result--#{@status}" : "" %>">
+      <p class="result__text"><%= @message %></p>
+      <p class="result__score">Score: <strong><%= @score %></strong></p>
+    </div>
+
+    <div class="actions">
+      <%= link_to "Play again", new_path, class: "btn btn--ghost" %>
+    </div>
+  </div>
+</div>
